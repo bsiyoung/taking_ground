@@ -102,7 +102,7 @@ class Joystick(QWidget):
 
         # Change Status Label Text (Angle In Degree)
         strength = self.get_strength()
-        angle = math.atan2(self.stick_pos[1], self.stick_pos[0]) * 180 / math.pi
+        angle = self.get_angle(in_deg=True)
         if angle < 0:
             angle += 360
         self.stat_label.setText('Strength : {:.2f} \nDirection : {:.2f}°'.format(strength, angle))
@@ -149,6 +149,13 @@ class Joystick(QWidget):
         distance = math.sqrt(self.stick_pos[0] * self.stick_pos[0] + self.stick_pos[1] * self.stick_pos[1])
 
         return distance / max_distance
+
+    def get_angle(self, in_deg=False):
+        angle = math.atan2(self.stick_pos[1], self.stick_pos[0])
+        if in_deg is True:
+            angle = angle * 180 / math.pi
+
+        return angle
 
 
 if __name__ == '__main__':
